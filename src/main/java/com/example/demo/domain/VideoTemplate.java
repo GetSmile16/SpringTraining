@@ -14,7 +14,9 @@ public abstract class VideoTemplate {
     @Column(nullable = false, length = 100)
     protected String name;
     protected String description;
-    protected String image;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    protected Image image;
     @Column(nullable = false, length = 50)
     protected String type;
     @Column(nullable = false)

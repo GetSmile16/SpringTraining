@@ -14,9 +14,9 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a th:href="@{http://localhost:8080/api/home}" class="nav-link px-2 text-secondary">Home</a></li>
-        <li><a th:href="@{http://localhost:8080/api/films}" class="nav-link px-2 text-white">Фильмы</a></li>
-        <li><a th:href="@{http://localhost:8080/api/serials}" class="nav-link px-2 text-white">Сериалы</a></li>
+        <li><a th:href="@{/home}" class="nav-link px-2 text-secondary">Home</a></li>
+        <li><a th:href="@{/films}" class="nav-link px-2 text-white">Фильмы</a></li>
+        <li><a th:href="@{/serials}" class="nav-link px-2 text-white">Сериалы</a></li>
       </ul>
 
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -47,7 +47,7 @@
   <tr th:each="film : ${films}">
     <td><p th:text="${film.name}" /></td>
     <td><p th:text="${film.description}" /></td>
-    <td><img th:src="'../../' + ${film.image}" width="400" /></td>
+    <td><img th:src="@{/images/{id}((id=${film.image.id}))}" width="400" /></td>
     <td><p th:text="${film.type}" /></td>
     <td><p th:text="${film.rating}" /></td>
     <td><a th:name="id" th:href="@{edit/{id}(id=${film.id})}" th:method="GET">Изменить</a> | <a th:href="@{delete/{id}(id=${film.id})}" th:method="GET">Удалить</a></td>

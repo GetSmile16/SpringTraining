@@ -14,9 +14,9 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a th:href="@{http://localhost:8080/api/home}" class="nav-link px-2 text-secondary">Home</a></li>
-        <li><a th:href="@{http://localhost:8080/api/serials}" class="nav-link px-2 text-white">Фильмы</a></li>
-        <li><a th:href="@{http://localhost:8080/api/serials}" class="nav-link px-2 text-white">Сериалы</a></li>
+        <li><a th:href="@{/home}" class="nav-link px-2 text-secondary">Home</a></li>
+        <li><a th:href="@{/serials}" class="nav-link px-2 text-white">Фильмы</a></li>
+        <li><a th:href="@{/serials}" class="nav-link px-2 text-white">Сериалы</a></li>
       </ul>
 
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -47,7 +47,7 @@
   <tr th:each="serial : ${serials}">
     <td><p th:text="${serial.name}" /></td>
     <td><p th:text="${serial.description}" /></td>
-    <td><img th:src="'../../' + ${serial.image}" width="400" /></td>
+    <td><img th:src="@{/images/{id}((id=${serial.image.id}))}" width="400" /></td>
     <td><p th:text="${serial.type}" /></td>
     <td><p th:text="${serial.rating}" /></td>
     <td><p th:text="${serial.series}" /></td>

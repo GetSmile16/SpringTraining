@@ -1,13 +1,10 @@
-package com.example.demo.repositories;
+package com.example.demo.repository;
 
 import com.example.demo.domain.Serial;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface SerialRepository extends CrudRepository<Serial, Long> {
-    Optional<Serial> findAllByOrderByRatingDesc();
-    Serial findById(long id);
+    Iterable<Serial> findFirst5ByOrderByRatingDesc();
 }

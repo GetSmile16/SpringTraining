@@ -31,7 +31,7 @@
   </div>
 </header>
 
-<a th:href="@{http://localhost:8080/api/films/create}">Добавить фильм</a>
+<a th:href="@{create}">Добавить фильм</a>
 <table class="table">
   <thead class="thead-dark">
   <th scope="col">Название</th>
@@ -42,12 +42,12 @@
   </thead>
   <tbody>
   <tr th:if="${#lists.isEmpty(films)}">
-    <td colspan="5"> No Films Available</td>
+    <td colspan="6"> No Films Available</td>
   </tr>
   <tr th:each="film : ${films}">
     <td><p th:text="${film.name}" /></td>
     <td><p th:text="${film.description}" /></td>
-    <td><img th:src="${film.image}" width="400" /></td>
+    <td><img th:src="'../../' + ${film.image}" width="400" /></td>
     <td><p th:text="${film.type}" /></td>
     <td><p th:text="${film.rating}" /></td>
     <td><a th:name="id" th:href="@{edit/{id}(id=${film.id})}" th:method="GET">Изменить</a> | <a th:href="@{delete/{id}(id=${film.id})}" th:method="GET">Удалить</a></td>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-    <title>Фильмы</title>
+    <title>Удаление фильма</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -37,26 +37,30 @@
 
 <div>
     <label for="name">Название фильма:</label>
-    <h2 th:text="${film.name}" id="name"></h2>
+    <h2 th:text="${serial.name}" id="name"></h2>
 </div>
 <div>
-    <label for="image">Превью:</label>
-    <img th:src="${film.image}" id="image" />
+    <label for="image">Превью:</label><br>
+    <img th:src="'../../' + ${serial.image}" id="image" width="400"/>
 </div>
 <div>
     <label for="description">Описание:</label>
-    <p th:text="${film.description}" id="description" />
+    <p th:text="${serial.description}" id="description" />
 </div>
 <div>
     <label for="type">Жанр: </label>
-    <p th:text="${film.type}" id="type">
+    <p th:text="${serial.type}" id="type">
 </div>
 <div>
     <label for="rating">Рейтинг</label>
-    <p th:text="${film.rating}" id="rating">
+    <p th:text="${serial.rating}" id="rating">
 </div>
 <div>
-    <form th:method="delete" th:action="@{http://localhost:8080/api/films/delete/{id}(id=${film.id})}">
+    <label for="series">Рейтинг</label>
+    <p th:text="${series.rating}" id="series">
+</div>
+<div>
+    <form th:method="delete" th:action="@{http://localhost:8080/api/serials/delete/{id}(id=${serial.id})}">
         <button type="submit" class="btn btn-primary">Удалить</button>
     </form>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-  <title>Фильмы</title>
+  <title>Добавление фильма</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -31,22 +31,23 @@
   </div>
 </header>
 
-<form th:method="post" th:action="@{http://localhost:8080/api/films/edit/{id}(id=${film.id})}" th:object="${film}" enctype="multipart/form-data">
+<form th:method="post" th:action="@{http://localhost:8080/api/serials/create}" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Название фильма</label>
-    <input type="text" th:field="*{name}" class="form-control" placeholder="Название" id="name">
+    <input type="text" name="name" class="form-control" placeholder="Название" id="name">
   </div>
   <div class="form-group">
     <label for="image">Превью</label>
-    <input name="data" class="form-control" type="file" id="image">
+    <input accept="image/*" name="data" class="form-control" type="file" id="image">
   </div>
   <div class="form-group">
     <label for="description">Описание</label>
-    <textarea th:field="*{description}" class="form-control" id="description" rows="3"></textarea>
+    <textarea name="description" class="form-control" id="description" rows="3"></textarea>
   </div>
   <div class="form-group">
     <label for="type">Жанр</label>
-    <select th:field="*{type}" class="form-control" id="type">
+    <select name="type" class="form-control" id="type">
+      <option selected>Выберите...</option>
       <option th:value="Ужасы" th:text="Ужасы"></option>
       <option th:value="Комедия" th:text="Комедия"></option>
       <option th:value="Боевик" th:text="Боевик"></option>
@@ -56,7 +57,11 @@
   </div>
   <div class="form-group">
     <label for="rating" class="control-label">Рейтинг</label>
-    <input th:field="*{rating}" type="number" id="rating" class="form-control" min="1" max="10" step="0.5">
+    <input name="rating" type="number" id="rating" class="form-control" min="1" max="10" step="0.5">
+  </div>
+  <div class="form-group">
+    <label for="series" class="control-label">Рейтинг</label>
+    <input name="series" type="number" id="series" class="form-control" min="1">
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary">Сохранить</button>

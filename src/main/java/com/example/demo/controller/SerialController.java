@@ -20,20 +20,20 @@ public class SerialController {
     @GetMapping("/serials")
     public String viewSerials(Model model) {
         model.addAttribute(SERIALS, serialService.getAllSerials());
-        return "serial/viewSerials";
+        return "views/serial/viewSerials";
     }
 
 
     @GetMapping("/serials/edit")
     public String viewEditSerials(Model model) {
         model.addAttribute(SERIALS, serialService.getAllSerials());
-        return "serial/viewEditSerials";
+        return "views/serial/viewEditSerials";
     }
 
     @GetMapping("/serials/edit/{id}")
     public String editSerial(Model model, @PathVariable long id) {
         model.addAttribute("serial", serialService.getSerialById(id));
-        return "serial/editSerial";
+        return "views/serial/editSerial";
     }
 
     @PostMapping("/serials/edit/{id}")
@@ -44,7 +44,7 @@ public class SerialController {
 
     @GetMapping("/serials/create")
     public String createSerial() {
-        return "serial/createSerial";
+        return "views/serial/createSerial";
     }
 
     @PostMapping("/serials/create")
@@ -56,7 +56,7 @@ public class SerialController {
     @GetMapping("/serials/delete/{id}")
     public String deleteSerial(Model model, @PathVariable long id) {
         model.addAttribute("serial", serialService.getSerialById(id));
-        return "serial/deleteSerial";
+        return "views/serial/deleteSerial";
     }
 
     @DeleteMapping("/serials/delete/{id}")

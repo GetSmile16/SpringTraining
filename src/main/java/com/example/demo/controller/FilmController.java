@@ -20,20 +20,20 @@ public class FilmController {
     @GetMapping("/films")
     public String viewFilms(Model model) {
         model.addAttribute(FILMS, filmService.getAllFilms());
-        return "film/viewFilms";
+        return "views/film/viewFilms";
     }
 
 
     @GetMapping("/films/edit")
     public String viewEditFilms(Model model) {
         model.addAttribute(FILMS, filmService.getAllFilms());
-        return "film/viewEditFilms";
+        return "views/film/viewEditFilms";
     }
 
     @GetMapping("/films/edit/{id}")
     public String editFilm(Model model, @PathVariable long id) {
         model.addAttribute("film", filmService.getFilmById(id));
-        return "film/editFilm";
+        return "views/film/editFilm";
     }
 
     @PostMapping("/films/edit/{id}")
@@ -44,7 +44,7 @@ public class FilmController {
 
     @GetMapping("/films/create")
     public String createFilm() {
-        return "film/createFilm";
+        return "views/film/createFilm";
     }
 
     @PostMapping("/films/create")
@@ -56,7 +56,7 @@ public class FilmController {
     @GetMapping("/films/delete/{id}")
     public String deleteFilm(Model model, @PathVariable long id) {
         model.addAttribute("film", filmService.getFilmById(id));
-        return "film/deleteFilm";
+        return "views/film/deleteFilm";
     }
 
     @DeleteMapping("/films/delete/{id}")

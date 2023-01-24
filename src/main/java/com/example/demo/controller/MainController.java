@@ -23,6 +23,6 @@ public class MainController{
                 "serials",
                 serialService.getTop5()
         );
-        return "home";
+        return "views/home";
     }
 }

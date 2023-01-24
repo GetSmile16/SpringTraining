@@ -28,60 +28,14 @@
             </form>
 
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                <button type="button" class="btn btn-outline-light me-2">##</button>
+                <button type="button" class="btn btn-warning" th:onclick="login()">Войти</button>
             </div>
         </div>
     </div>
 </header>
 
-
-<h2>Топ 5 фильмов</h2>
-<table class="table">
-    <thead class="thead-dark">
-    <th scope="col">Название</th>
-    <th scope="col">Описание</th>
-    <th scope="col">Превью</th>
-    <th scope="col">Жанр</th>
-    <th scope="col">Рейтинг</th>
-    </thead>
-    <tbody>
-    <tr th:if="${#lists.isEmpty(films)}">
-        <td colspan="5"> No Films Available</td>
-    </tr>
-    <tr th:each="film : ${films}">
-        <td><p th:text="${film.name}"/></td>
-        <td><p th:text="${film.description}"/></td>
-        <td><img th:src="@{/images/{id}((id=${film.image.id}))}" width="400"/></td>
-        <td><p th:text="${film.type}"/></td>
-        <td><p th:text="${film.rating}"/></td>
-    </tr>
-    </tbody>
-</table>
-
-<h2>Топ 5 сериалов</h2>
-<table class="table">
-    <thead class="thead-dark">
-    <th scope="col">Название</th>
-    <th scope="col">Описание</th>
-    <th scope="col">Превью</th>
-    <th scope="col">Жанр</th>
-    <th scope="col">Рейтинг</th>
-    </thead>
-    <tbody>
-    <tr th:if="${#lists.isEmpty(serials)}">
-        <td colspan="6"> No serials Available</td>
-    </tr>
-    <tr th:each="serial : ${serials}">
-        <td><p th:text="${serial.name}"/></td>
-        <td><p th:text="${serial.description}"/></td>
-        <td><img th:src="@{/images/{id}((id=${serial.image.id}))}" width="400"/></td>
-        <td><p th:text="${serial.type}"/></td>
-        <td><p th:text="${serial.rating}"/></td>
-        <td><p th:text="${serial.series}"/></td>
-    </tr>
-    </tbody>
-</table>
+<script type="text/javascript" th:src="@{/js/actions.js}"></script>
 
 </body>
 </html>

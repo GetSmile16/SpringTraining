@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "serial")
+@Table(name = "serials")
 public class Serial extends VideoTemplate {
     private Integer series;
 }

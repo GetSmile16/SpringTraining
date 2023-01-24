@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "film")
+@Table(name = "films")
 public class Film extends VideoTemplate {
 }

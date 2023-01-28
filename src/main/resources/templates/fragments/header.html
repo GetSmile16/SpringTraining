@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Фильмы и сериалы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+<header th:fragment="header" class="p-3 text-bg-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a th:href="@{/home}" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a th:href="@{/films}" class="nav-link px-2 text-white">Фильмы</a></li>
+                <li><a th:href="@{/serials}" class="nav-link px-2 text-white">Сериалы</a></li>
+            </ul>
+
+            <!--            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">-->
+            <!--                <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."-->
+            <!--                       aria-label="Search">-->
+            <!--            </form>-->
+
+            <div th:if="${user.email != null}" class="me-0 mb-2 mb-md-0" th:text="${user.name}"></div>
+
+            <div class="text-end">`
+                <button th:if="${user.email != null}" type="button" class="btn btn-outline-light me-2"
+                        th:onclick="logout()">Выйти
+                </button>
+                <button th:if="${user.email == null}" type="button" class="btn btn-warning" th:onclick="login()">Войти
+                </button>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        function login() {
+            location.assign('http://localhost:8080/login');
+        }
+
+        function logout() {
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = 'http://localhost:8080/logout';
+
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = '_csrf';
+            hiddenField.value = [[${_csrf.token}]];
+            form.appendChild(hiddenField);
+
+            document.head.appendChild(form);
+            form.submit();
+        }
+    </script>
+</header>
+</body>
+</html>

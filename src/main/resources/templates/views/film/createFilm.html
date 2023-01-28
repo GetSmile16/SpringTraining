@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Добавление фильма</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<form th:method="post" th:action="@{/films/create}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Название фильма</label>
+        <input type="text" name="name" class="form-control" placeholder="Название" id="name">
+    </div>
+    <div class="form-group">
+        <label for="image">Превью</label>
+        <input accept="image/*" name="data" class="form-control" type="file" id="image">
+    </div>
+    <div class="form-group">
+        <label for="description">Описание</label>
+        <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="type">Жанр</label>
+        <select name="type" class="form-control" id="type">
+            <option selected>Выберите...</option>
+            <option th:value="Ужасы" th:text="Ужасы"></option>
+            <option th:value="Комедия" th:text="Комедия"></option>
+            <option th:value="Боевик" th:text="Боевик"></option>
+            <option th:value="Триллер" th:text="Триллер"></option>
+            <option th:value="Драмма" th:text="Драмма"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="rating" class="control-label">Рейтинг</label>
+        <input name="rating" type="number" id="rating" class="form-control" min="1" max="10" step="0.5">
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+</form>
+
+</body>
+</html>

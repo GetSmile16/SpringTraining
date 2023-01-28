@@ -26,7 +26,7 @@ public class UserController {
     public String createUser(@ModelAttribute User user, Model model) {
         if (!userService.createUser(user)) {
             model.addAttribute(
-                    "error",
+                    "errorMessage",
                     "Пользователь с email: " + user.getEmail() + " уже существует");
             return "views/security/registration";
         }

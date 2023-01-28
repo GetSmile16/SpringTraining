@@ -7,7 +7,7 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
-<div th:replace="/fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div>
     <label for="name">Название фильма:</label>
@@ -19,7 +19,7 @@
 </div>
 <div>
     <label for="description">Описание:</label>
-    <p th:text="${film.description}" id="description" />
+    <p th:text="${film.description}" id="description"/>
 </div>
 <div>
     <label for="type">Жанр: </label>
@@ -31,6 +31,7 @@
 </div>
 <div>
     <form th:method="delete" th:action="@{/films/delete/{id}(id=${film.id})}">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
         <button type="submit" class="btn btn-primary">Удалить</button>
     </form>
 </div>

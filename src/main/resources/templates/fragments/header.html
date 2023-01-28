@@ -22,20 +22,42 @@
                 <li><a th:href="@{/serials}" class="nav-link px-2 text-white">Сериалы</a></li>
             </ul>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
-                       aria-label="Search">
-            </form>
+            <!--            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">-->
+            <!--                <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."-->
+            <!--                       aria-label="Search">-->
+            <!--            </form>-->
 
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">##</button>
-                <button type="button" class="btn btn-warning" th:onclick="login()">Войти</button>
+            <div th:if="${user.email != null}" class="me-0 mb-2 mb-md-0" th:text="${user.name}"></div>
+
+            <div class="text-end">`
+                <button th:if="${user.email != null}" type="button" class="btn btn-outline-light me-2"
+                        th:onclick="logout()">Выйти
+                </button>
+                <button th:if="${user.email == null}" type="button" class="btn btn-warning" th:onclick="login()">Войти
+                </button>
             </div>
         </div>
     </div>
+    <script th:inline="javascript">
+        function login() {
+            location.assign('http://localhost:8080/login');
+        }
+
+        function logout() {
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = 'http://localhost:8080/logout';
+
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = '_csrf';
+            hiddenField.value = [[${_csrf.token}]];
+            form.appendChild(hiddenField);
+
+            document.head.appendChild(form);
+            form.submit();
+        }
+    </script>
 </header>
-
-<script type="text/javascript" th:src="@{/js/actions.js}"></script>
-
 </body>
 </html>

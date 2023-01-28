@@ -7,7 +7,7 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
-<div th:replace="/fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div>
     <label for="name">Название фильма:</label>
@@ -19,7 +19,7 @@
 </div>
 <div>
     <label for="description">Описание:</label>
-    <p th:text="${serial.description}" id="description" />
+    <p th:text="${serial.description}" id="description"/>
 </div>
 <div>
     <label for="type">Жанр: </label>

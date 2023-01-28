@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,50 +19,64 @@ public class FilmController {
     private static final String EDIT_REDIRECT = "redirect:/films/edit";
 
     @GetMapping("/films")
-    public String viewFilms(Model model) {
-        model.addAttribute(FILMS, filmService.getAllFilms());
+    public String viewFilms(Model model, Principal principal) {
+        model.addAttribute(FILMS, filmService.getAll());
+        model.addAttribute("user", filmService.getUserByPrincipal(principal));
         return "views/film/viewFilms";
     }
 
 
     @GetMapping("/films/edit")
-    public String viewEditFilms(Model model) {
-        model.addAttribute(FILMS, filmService.getAllFilms());
+    public String viewEditFilms(Model model, Principal principal) {
+        model.addAttribute(FILMS, filmService.getAll());
+        model.addAttribute("user", filmService.getUserByPrincipal(principal));
         return "views/film/viewEditFilms";
     }
 
     @GetMapping("/films/edit/{id}")
-    public String editFilm(Model model, @PathVariable long id) {
-        model.addAttribute("film", filmService.getFilmById(id));
+    public String editFilm(Model model,
+                           @PathVariable long id,
+                           Principal principal) {
+        model.addAttribute("film", filmService.getById(id));
+        model.addAttribute("user", filmService.getUserByPrincipal(principal));
         return "views/film/editFilm";
     }
 
     @PostMapping("/films/edit/{id}")
-    public String editFilm(@ModelAttribute Film film, @RequestParam(name = "data", required = false) MultipartFile multipart, @PathVariable long id) throws IOException {
-        filmService.updateFilm(film, multipart, id);
+    public String editFilm(@ModelAttribute Film film,
+                           @RequestParam(name = "data", required = false) MultipartFile multipart,
+                           @PathVariable long id,
+                           Principal principal) throws IOException {
+        filmService.update(principal, film, multipart, id);
         return EDIT_REDIRECT;
     }
 
     @GetMapping("/films/create")
-    public String createFilm() {
+    public String createFilm(Model model, Principal principal) {
+        model.addAttribute("user", filmService.getUserByPrincipal(principal));
         return "views/film/createFilm";
     }
 
     @PostMapping("/films/create")
-    public String createFilm(@ModelAttribute Film film, @RequestParam(name = "data", required = false) MultipartFile multipart) throws IOException {
-        filmService.createFilm(film, multipart);
+    public String createFilm(@ModelAttribute Film film,
+                             @RequestParam(name = "data", required = false) MultipartFile multipart,
+                             Principal principal) throws IOException {
+        filmService.create(principal, film, multipart);
         return EDIT_REDIRECT;
     }
 
     @GetMapping("/films/delete/{id}")
-    public String deleteFilm(Model model, @PathVariable long id) {
-        model.addAttribute("film", filmService.getFilmById(id));
+    public String deleteFilm(Model model,
+                             @PathVariable long id,
+                             Principal principal) {
+        model.addAttribute("film", filmService.getById(id));
+        model.addAttribute("user", filmService.getUserByPrincipal(principal));
         return "views/film/deleteFilm";
     }
 
     @DeleteMapping("/films/delete/{id}")
     public String deleteFilm(@ModelAttribute Film film) {
-        filmService.deleteFilm(film);
+        filmService.delete(film);
         return EDIT_REDIRECT;
     }
 }

@@ -23,7 +23,7 @@ public class UserController {
     public String loginError(final RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute(
                         "errorMessage",
-                        "Вы ввели неправильный логин или пароль"
+                        "Введен неправильный логин или пароль"
         );
         return "redirect:/login";
     }

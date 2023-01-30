@@ -17,6 +17,7 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +48,8 @@ public class User implements UserDetails {
     }
 
     //security
+
+    public boolean isAdmin() { return roles.contains(Role.ROLE_ADMIN);}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

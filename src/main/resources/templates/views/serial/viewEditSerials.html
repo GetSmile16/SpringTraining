@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+    <!DOCTYPE HTML>
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <title>Фильмы</title>
@@ -10,7 +10,7 @@
 <div th:replace="~{fragments/header :: header}"></div>
 
 <a th:href="@{create}">Добавить фильм</a>
-<table class="table">
+<table class="table table-hover">
     <thead class="thead-dark">
     <th scope="col">Название</th>
     <th scope="col">Описание</th>
@@ -22,7 +22,7 @@
     <tr th:if="${#lists.isEmpty(serials)}">
         <td colspan="7"> No serials Available</td>
     </tr>
-    <tr th:each="serial : ${serials}">
+    <tr th:="${not #lists.isEmpty(serials)}" th:each="serial : ${serials}">
         <td><p th:text="${serial.name}"/></td>
         <td><p th:text="${serial.description}"/></td>
         <td><img th:src="@{/images/{id}((id=${serial.image.id}))}" width="400"/></td>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Сериалы</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -9,8 +9,8 @@
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 
-<div th:if="${user.email != null}">
-    <a th:href="@{serials/edit}">Изменить</a>
+<div sec:authorize="isAuthenticated()">
+    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{serials/edit}">Изменить</a>
     <table class="table">
         <thead class="thead-dark">
         <th scope="col">Название</th>

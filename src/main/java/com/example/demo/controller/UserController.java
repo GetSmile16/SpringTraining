@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,6 +18,16 @@ public class UserController {
     public String login() {
         return "views/security/login";
     }
+
+    @GetMapping("/login-error")
+    public String loginError(final RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute(
+                        "errorMessage",
+                        "Вы ввели неправильный логин или пароль"
+        );
+        return "redirect:/login";
+    }
+
     @GetMapping("/registration")
     public String registration() {
         return "views/security/registration";
@@ -27,7 +38,8 @@ public class UserController {
         if (!userService.createUser(user)) {
             model.addAttribute(
                     "errorMessage",
-                    "Пользователь с email: " + user.getEmail() + " уже существует");
+                    "Пользователь с email: " + user.getEmail() + " уже существует"
+            );
             return "views/security/registration";
         }
         userService.createUser(user);

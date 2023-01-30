@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Serial;
+import com.example.demo.domain.User;
 import com.example.demo.service.SerialServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,16 +21,19 @@ public class SerialController {
 
     @GetMapping("/serials")
     public String viewSerials(Model model, Principal principal) {
+        User user = serialService.getUserByPrincipal(principal);
+        ExceptionController.handleForbiddenIfNotAdmin(user);
         model.addAttribute(SERIALS, serialService.getAll());
         model.addAttribute("user", serialService.getUserByPrincipal(principal));
         return "views/serial/viewSerials";
     }
 
-
     @GetMapping("/serials/edit")
     public String viewEditSerials(Model model, Principal principal) {
+        User user = serialService.getUserByPrincipal(principal);
+        ExceptionController.handleForbiddenIfNotAdmin(user);
         model.addAttribute(SERIALS, serialService.getAll());
-        model.addAttribute("user", serialService.getUserByPrincipal(principal));
+        model.addAttribute("user", user);
         return "views/serial/viewEditSerials";
     }
 
@@ -37,6 +41,8 @@ public class SerialController {
     public String editSerial(Model model,
                              @PathVariable long id,
                              Principal principal) {
+        User user = serialService.getUserByPrincipal(principal);
+        ExceptionController.handleForbiddenIfNotAdmin(user);
         model.addAttribute("serial", serialService.getById(id));
         model.addAttribute("user", serialService.getUserByPrincipal(principal));
         return "views/serial/editSerial";
@@ -47,12 +53,16 @@ public class SerialController {
                              @RequestParam(name = "data", required = false) MultipartFile multipart,
                              @PathVariable long id,
                              Principal principal) throws IOException {
+        User user = serialService.getUserByPrincipal(principal);
+        ExceptionController.handleForbiddenIfNotAdmin(user);
         serialService.update(principal, serial, multipart, id);
         return EDIT_REDIRECT;
     }
 
     @GetMapping("/serials/create")
     public String createSerial(Model model, Principal principal) {
+        User user = serialService.getUserByPrincipal(principal);
+        ExceptionController.handleForbiddenIfNotAdmin(user);
         model.addAttribute("user", serialService.getUserByPrincipal(principal));
         return "views/serial/createSerial";
     }
@@ -61,6 +71,8 @@ public class SerialController {
     public String createSerial(@ModelAttribute Serial serial,
                                @RequestParam(name = "data", required = false) MultipartFile multipart,
                                Principal principal) throws IOException {
+        User user = serialService.getUserByPrincipal(principal);
+        ExceptionController.handleForbiddenIfNotAdmin(user);
         serialService.create(principal, serial, multipart);
         return EDIT_REDIRECT;
     }
@@ -69,13 +81,17 @@ public class SerialController {
     public String deleteSerial(Model model,
                                @PathVariable long id,
                                Principal principal) {
+        User user = serialService.getUserByPrincipal(principal);
+        ExceptionController.handleForbiddenIfNotAdmin(user);
         model.addAttribute("serial", serialService.getById(id));
         model.addAttribute("user", serialService.getUserByPrincipal(principal));
         return "views/serial/deleteSerial";
     }
 
     @DeleteMapping("/serials/delete/{id}")
-    public String deleteSerial(@ModelAttribute Serial serial) {
+    public String deleteSerial(@ModelAttribute Serial serial, Principal principal) {
+        User user = serialService.getUserByPrincipal(principal);
+        ExceptionController.handleForbiddenIfNotAdmin(user);
         serialService.delete(serial);
         return EDIT_REDIRECT;
     }

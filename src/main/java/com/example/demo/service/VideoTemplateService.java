@@ -40,6 +40,7 @@ public abstract class VideoTemplateService<T extends VideoTemplate> {
             ((SerialRepository) videoTemplateRepository).save((Serial) video);
         }
     }
+
     public void delete(T video) {
         if (video instanceof Film film) {
             ((FilmRepository) videoTemplateRepository).delete(film);
@@ -73,6 +74,8 @@ public abstract class VideoTemplateService<T extends VideoTemplate> {
         video.setUser(getUserByPrincipal(principal));
         save(video);
     }
+
     abstract Iterable<T> getAll();
+
     abstract Iterable<T> getTop5();
 }

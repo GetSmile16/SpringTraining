@@ -26,7 +26,7 @@
         <tr th:each="film : ${films}">
             <td><p th:text="${film.name}"/></td>
             <td><p th:text="${film.description}"/></td>
-            <td><img th:src="@{/images/{id}((id=${film.image.id}))}" width="400"/></td>
+            <td><img th:if="${film.image != null}" th:src="@{/images/{id}((id=${film.image.id}))}" width="400"/></td>
             <td><p th:text="${film.type}"/></td>
             <td><p th:text="${film.rating}"/></td>
         </tr>

@@ -26,7 +26,8 @@
         <tr th:each="serial : ${serials}">
             <td><p th:text="${serial.name}"/></td>
             <td><p th:text="${serial.description}"/></td>
-            <td><img th:src="@{/images/{id}((id=${serial.image.id}))}" width="400"/></td>
+            <td><img th:if="${serial.image != null}" th:src="@{/images/{id}((id=${serial.image.id}))}" width="400"/>
+            </td>
             <td><p th:text="${serial.type}"/></td>
             <td><p th:text="${serial.rating}"/></td>
             <td><p th:text="${serial.series}"/></td>

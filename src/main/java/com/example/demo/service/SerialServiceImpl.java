@@ -15,6 +15,7 @@ public class SerialServiceImpl extends VideoTemplateService<Serial> {
     public SerialServiceImpl(UserRepository userRepository, ImageRepository imageRepository, SerialRepository serialRepository) {
         super(userRepository, imageRepository, serialRepository);
     }
+
     @Override
     public Serial getById(long id) {
         return ((SerialRepository) videoTemplateRepository)

@@ -15,7 +15,7 @@
 </div>
 <div>
     <label for="image">Превью:</label><br>
-    <img th:src="@{/images/{id}((id=${film.image.id}))}" id="image" width="400"/>
+    <img th:if="${film.image != null}" th:src="@{/images/{id}((id=${film.image.id}))}" id="image" width="400"/>
 </div>
 <div>
     <label for="description">Описание:</label>

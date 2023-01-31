@@ -2,6 +2,9 @@ package com.example.demo.domain;
 
 import com.example.demo.domain.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,18 +26,24 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
+    @NotBlank(message = "Email не должен быть пустым")
+    @Email(message = "Email должен быть записан по шаблону \"example@domain.ru\"")
     private String email;
+    @Pattern(regexp = "^\\+7\\d{10}$", message = "Номер должен соответствовать формату")
     private String phoneNumber;
+    @Column(nullable = false)
+    @NotBlank(message = "Имя не должно быть пустым")
     private String name;
     private boolean active;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private Image avatar;
     @Column(length = 1000)
+    @NotBlank
     private String password;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
-    joinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
@@ -42,6 +51,7 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Serial> serials = new ArrayList<>();
     private LocalDateTime dateOfCreated;
+
     @PrePersist
     void init() {
         dateOfCreated = LocalDateTime.now();
@@ -49,7 +59,9 @@ public class User implements UserDetails {
 
     //security
 
-    public boolean isAdmin() { return roles.contains(Role.ROLE_ADMIN);}
+    public boolean isAdmin() {
+        return roles.contains(Role.ROLE_ADMIN);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -60,18 +72,22 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @Override
     public boolean isEnabled() {
         return active;

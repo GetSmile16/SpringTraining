@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Фильмы и сериалы</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -27,10 +27,10 @@
             <!--                       aria-label="Search">-->
             <!--            </form>-->
 
-            <div th:if="${user.email != null}" class="me-0 mb-2 mb-md-0" th:text="${user.name}"></div>
+            <div sec:authorize="isAuthenticated()" class="me-2 mb-2 mb-md-0" th:text="${user.name}"></div>
 
-            <div class="text-end">`
-                <button th:if="${user.email != null}" type="button" class="btn btn-outline-light me-2"
+            <div class="text-end">
+                <button sec:authorize="isAuthenticated()" type="button" class="btn btn-outline-light me-2"
                         th:onclick="logout()">Выйти
                 </button>
                 <button th:if="${user.email == null}" type="button" class="btn btn-warning" th:onclick="login()">Войти

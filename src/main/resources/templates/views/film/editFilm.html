@@ -13,30 +13,43 @@
     <div class="form-group">
         <label for="name">Название фильма</label>
         <input type="text" th:field="*{name}" class="form-control" placeholder="Название" id="name">
+        <div class="alert alert-warning" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+            Error
+        </div>
     </div>
     <div class="form-group">
         <label for="image">Превью</label>
         <input accept="image/*" name="data" class="form-control" type="file" id="image"><br>
         <label for="curImage">Текущее превью:</label><br>
-        <img th:src="@{/images/{id}((id=${film.image.id}))}" width="400" id="curImage"/>
+        <img th:if="${film.image != null}" th:src="@{/images/{id}((id=${film.image.id}))}" width="400" id="curImage"/>
     </div>
     <div class="form-group">
         <label for="description">Описание</label>
         <textarea th:field="*{description}" class="form-control" id="description" rows="3"></textarea>
+        <div class="alert alert-warning" role="alert" th:if="${#fields.hasErrors('description')}"
+             th:errors="*{description}">Description Error
+        </div>
     </div>
     <div class="form-group">
         <label for="type">Жанр</label>
         <select th:field="*{type}" class="form-control" id="type">
+            <option value="" selected>Выберите...</option>
             <option th:value="Ужасы" th:text="Ужасы"></option>
             <option th:value="Комедия" th:text="Комедия"></option>
             <option th:value="Боевик" th:text="Боевик"></option>
             <option th:value="Триллер" th:text="Триллер"></option>
             <option th:value="Драмма" th:text="Драмма"></option>
         </select>
+        <div class="alert alert-warning" role="alert" th:if="${#fields.hasErrors('type')}"
+             th:errors="*{type}">Type Error
+        </div>
     </div>
     <div class="form-group">
         <label for="rating" class="control-label">Рейтинг</label>
-        <input th:field="*{rating}" type="number" id="rating" class="form-control" min="1" max="10" step="0.5">
+        <input th:field="*{rating}" type="number" id="rating" class="form-control" min="1" max="10" step="0.1">
+        <div class="alert alert-warning" role="alert" th:if="${#fields.hasErrors('rating')}"
+             th:errors="*{rating}">Rating Error
+        </div>
     </div>
     <div class="form-group">
         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
